@@ -1,3 +1,0 @@
-# Google AdSense 승인 후 Google이 제공하는 실제 ads.txt 라인으로 교체하세요.
-# 예시 형식만 참고:
-# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
