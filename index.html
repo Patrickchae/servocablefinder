@@ -80,7 +80,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;borde
 <div class="adslot"><div class="adbox">ADVERTISEMENT AREA<br>AdSense 승인 후 이 영역에 광고 코드를 삽입합니다.</div></div>
 
 <div class="wrap">
-<h1>Delta Servo Cable Selector <span class="badge">v11.2</span></h1>
+<h1>Delta Servo Cable Selector <span class="badge">v11.3</span></h1>
 <div class="sub">
 모터 모델 DB를 실제 세대별 표기 방식으로 다시 구성했습니다.
 A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기준으로 케이블을 선택합니다.
@@ -120,6 +120,13 @@ A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기
 
 
 
+
+<div class="card note" style="border:2px solid #f79009">
+<b>Power cable 표기 순서</b><br>
+모든 드라이브의 <b>1 kW 이상 Power cable</b>은 <b>기본 품번 + 길이 + 가동/비가동 + kW</b> 순서로 표시합니다.<br>
+예: <b>ACS3-CAPW3105-N-1.5</b>, <b>ACS3-CAPW3105-A-1.5</b><br>
+1 kW는 <b>-1</b>, 1.5 kW는 <b>-1.5</b>, 2 kW는 <b>-2</b>처럼 표기합니다.
+</div>
 <div class="card note" style="border:2px solid #7f56d9">
 <b>B2 드라이브 케이블 표기 규칙</b><br>
 B2 Encoder: 1 kW 미만은 <b>ASD-B2EN00XX</b>, 1 kW 이상은 <b>ASD-B2EN10XX</b>로 표기합니다.<br>
@@ -223,7 +230,7 @@ function oldGroup(ms){return ["A2","B2","A3"].includes(ms)}
 
 
 function powerCapacitySuffix(w){
- if(w<=1000) return "";
+ if(w<1000) return "";
  const kw=w/1000;
  return "-"+(Number.isInteger(kw)?kw.toFixed(0):kw.toString());
 }
@@ -271,25 +278,25 @@ function a2Power(ms,m,L,flex,brake){
 
  // F40~F80 low-inertia quick connector group
  if(["F40","F60","F80"].includes(f)){
-   return [`ASD-ABPW${brake==="yes"?"01":"00"}${xx}${suffix}`,
+   return [`ASD-ABPW${brake==="yes"?"01":"00"}${xx}${suffix}${powerCapacitySuffix(w)}`,
            "A2 manual Appendix A: F40~F80 low-inertia ECMA/B2-equivalent motor power cable."];
  }
 
  // 1 kW / 1.5 kW F100~F130
  if((w===1000 || w===1500) && ["F100","F130"].includes(f)){
-   return [`ASD-CAPW${brake==="yes"?"11":"10"}${xx}${suffix}`,
+   return [`ASD-CAPW${brake==="yes"?"11":"10"}${xx}${suffix}${powerCapacitySuffix(w)}`,
            "A2 manual Appendix A: 1~1.5 kW F100/F130 power cable, connector ASD-CAPW1000."];
  }
 
  // 2 kW F100/F130: C11020/E11320 family and B2 equivalents
  if(w===2000 && ["F100","F130"].includes(f)){
-   return [`ASD-A2PW${brake==="yes"?"11":"10"}${xx}${suffix}`,
+   return [`ASD-A2PW${brake==="yes"?"11":"10"}${xx}${suffix}${powerCapacitySuffix(w)}`,
            "A2 manual Appendix A: 2 kW C11020/E11320 family power cable, connector ASD-CAPW1000."];
  }
 
  // 2~3 kW F180: E11820/E11830/F11830 and B2 equivalents
  if(f==="F180" && (w===2000 || w===3000)){
-   return [`ASD-CAPW${brake==="yes"?"21":"20"}${xx}${suffix}`,
+   return [`ASD-CAPW${brake==="yes"?"21":"20"}${xx}${suffix}${powerCapacitySuffix(w)}`,
            "A2 manual Appendix A: F180 2~3 kW power cable, connector ASD-CAPW2000."];
  }
 
@@ -345,24 +352,24 @@ function a3Power(ms,m,L,flex,brake,dw){
  const f=m[2],xx=String(L).padStart(2,"0");
  if(["F40","F60","F80"].includes(f)){
   const prefix=brake==="yes"?"ACS3-CAPW21":"ACS3-CAPW11";
-  return [prefix+xx+powerCapacitySuffix(m[1])+(flex==="flex"?"-A":"-N"),"F40~F80 공용 power 그룹 · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+  return [prefix+xx+(flex==="flex"?"-A":"-N")+powerCapacitySuffix(m[1]),"F40~F80 공용 power 그룹 · -A 가동형 / -N 비가동형 · 가동/비가동 표시 다음은 모터용량(kW)"];
  }
  if(oldGroup(ms) && ["F100","F130"].includes(f)){
   if(![3,5].includes(L)) return ["표준품 없음","ECMC F100~F130 power는 3 m / 5 m"];
   const fam=dw<=1500?(brake==="yes"?"22":"12"):(brake==="yes"?"23":"13");
-  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,`ECMC/A2/B2 F100~F130, 3106A-20-18S / A3 ${dw<=1500?"≤1.5 kW":">1.5 kW"} · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)`];
+  return [`ACS3-CAPW${fam}${xx}${flex==="flex"?"-A":"-N"}${powerCapacitySuffix(m[1])}`,`ECMC/A2/B2 F100~F130, 3106A-20-18S / A3 ${dw<=1500?"≤1.5 kW":">1.5 kW"} · -A 가동형 / -N 비가동형 · 가동/비가동 표시 다음은 모터용량(kW)`];
  }
  if(oldGroup(ms) && f==="F180"){
   if(![3,5].includes(L)) return ["표준품 없음","ECMC F180 power는 3 m / 5 m"];
-  return [`ACS3-CAPW${brake==="yes"?"24":"14"}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,"ECMC/A2/B2 F180, 3106A-24-11S · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+  return [`ACS3-CAPW${brake==="yes"?"24":"14"}${xx}${flex==="flex"?"-A":"-N"}${powerCapacitySuffix(m[1])}`,"ECMC/A2/B2 F180, 3106A-24-11S · -A 가동형 / -N 비가동형 · 가동/비가동 표시 다음은 모터용량(kW)"];
  }
  if(ms==="B3" && ["F100","F130"].includes(f)){
   if(![3,5].includes(L)) return ["표준품 없음","B3 F100~F130 power는 3 m / 5 m"];
-  return [`ACS3-${brake==="yes"?"CAPW63":"CAPW53"}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,"B3 F100~F130, 3106A-18-10S · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+  return [`ACS3-${brake==="yes"?"CAPW63":"CAPW53"}${xx}${flex==="flex"?"-A":"-N"}${powerCapacitySuffix(m[1])}`,"B3 F100~F130, 3106A-18-10S · -A 가동형 / -N 비가동형 · 가동/비가동 표시 다음은 모터용량(kW)"];
  }
  if(ms==="B3" && f==="F180"){
   if(![3,5].includes(L)) return ["표준품 없음","B3 F180 power는 3 m / 5 m"];
-  return [`ACS3-${brake==="yes"?"CAPW64":"CAPW54"}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,"B3 F180, 3106A-22-22S · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+  return [`ACS3-${brake==="yes"?"CAPW64":"CAPW54"}${xx}${flex==="flex"?"-A":"-N"}${powerCapacitySuffix(m[1])}`,"B3 F180, 3106A-22-22S · -A 가동형 / -N 비가동형 · 가동/비가동 표시 다음은 모터용량(kW)"];
  }
  return ["확인 필요","A3 매뉴얼 DB 범위 외"];
 }
@@ -411,15 +418,15 @@ function b3Power(ms,m,L,flex,brake){
  const f=m[2],xx=String(L).padStart(2,"0"),suffix=flex==="flex"?"-A":"-N";
  if(["F40","F60","F80"].includes(f)){
   const fam=brake==="yes"?"41":"31";
-  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${suffix}`,"B3 manual B.2: F80 이하 31XX / brake 41XX · 사내 표기 -A/-N · 마지막은 모터용량(kW)"];
+  return [`ACS3-CAPW${fam}${xx}${suffix}${powerCapacitySuffix(m[1])}`,"B3 manual B.2: F80 이하 31XX / brake 41XX · 사내 표기 -A/-N · 가동/비가동 표시 다음은 모터용량(kW)"];
  }
  if(["F100","F130"].includes(f)){
   const fam=brake==="yes"?"42":"32";
-  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${suffix}`,"B3 manual B.2: F100~F130 32XX / brake 42XX, MIL 18-10S · 사내 표기 -A/-N · 마지막은 모터용량(kW)"];
+  return [`ACS3-CAPW${fam}${xx}${suffix}${powerCapacitySuffix(m[1])}`,"B3 manual B.2: F100~F130 32XX / brake 42XX, MIL 18-10S · 사내 표기 -A/-N · 가동/비가동 표시 다음은 모터용량(kW)"];
  }
  if(f==="F180"){
   const fam=brake==="yes"?"44":"34";
-  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${suffix}`,"B3 manual B.2: F180 34XX / brake 44XX, MIL 22-22S · 사내 표기 -A/-N · 마지막은 모터용량(kW)"];
+  return [`ACS3-CAPW${fam}${xx}${suffix}${powerCapacitySuffix(m[1])}`,"B3 manual B.2: F180 34XX / brake 44XX, MIL 22-22S · 사내 표기 -A/-N · 가동/비가동 표시 다음은 모터용량(kW)"];
  }
  return ["확인 필요","B3 매뉴얼 DB 범위 외"];
 }

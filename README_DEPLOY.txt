@@ -22,3 +22,6 @@ AdSense:
 - Cable Finder 로직은 Delta_Servo_Cable_Selector_v11_2.html 기준으로 통합됨
 - 사이트는 Delta Electronics 공식 사이트가 아님
 - 실제 적용 전 최신 공식 매뉴얼 확인 안내 유지 권장
+
+
+v2 변경: 모든 1 kW 이상 Power cable을 길이-가동구분-kW 순서로 표기 (예: ACS3-CAPW3105-N-1.5).
