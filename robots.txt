@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://servocablefind.com/sitemap.xml

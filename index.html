@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ServoCableFind | Delta Servo Cable Finder A2 B2 A3 B3</title>
+<meta name="description" content="Delta A2, B2, A3, B3 servo drive and motor combinations, power cable and encoder cable part-number finder.">
+<meta name="keywords" content="Delta servo cable, ASDA A2 cable, ASDA B2 cable, ASDA A3 cable, ASDA B3 cable, encoder cable, power cable">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://servocablefind.com/">
+<meta property="og:title" content="ServoCableFind">
+<meta property="og:description" content="Delta servo drive & motor cable finder for A2, B2, A3 and B3 series.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://servocablefind.com/">
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--line:#d6dce5;--txt:#182230;--muted:#667085;--ok:#067647;--warn:#b54708;--bad:#b42318;--blue:#175cd3}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Malgun Gothic",sans-serif;color:var(--txt)}
+.wrap{max-width:1200px;margin:26px auto;padding:0 16px}h1{margin:0 0 6px;font-size:28px}.sub{font-size:14px;color:var(--muted);line-height:1.6}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 4px 16px rgba(16,24,40,.04)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+select{width:100%;padding:11px;border:1px solid #cfd6df;border-radius:8px;background:#fff;font-size:14px}
+.status{padding:15px;border-radius:10px;border:1px solid var(--line);line-height:1.65;font-weight:700}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}.blue{color:var(--blue)}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:13px}.res{background:#fafbfc;border:1px solid var(--line);border-radius:11px;padding:15px}
+.res h3{margin:0 0 8px;color:var(--muted);font-size:12px}.pn{font-size:22px;font-weight:800;word-break:break-all}.meta{font-size:13px;color:var(--muted);line-height:1.6;margin-top:7px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid #eaecf0;text-align:left;vertical-align:top}th{width:240px;background:#f8fafc}
+.badge{display:inline-block;background:#eef4ff;color:#3538cd;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:800}
+.note{font-size:13px;color:var(--muted);line-height:1.65}
+@media(max-width:760px){.grid,.results{grid-template-columns:1fr}}
+</style>
+
+<style>
+.sitebar{background:#101828;color:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #344054}
+.sitebar-inner{max-width:1200px;margin:auto;padding:12px 16px;display:flex;align-items:center;gap:20px}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.3px;color:#fff;text-decoration:none;white-space:nowrap}
+.brand b{color:#84adff}
+.nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+.nav a{color:#d0d5dd;text-decoration:none;font-size:14px;font-weight:700}
+.nav a:hover{color:#fff}
+.hero{max-width:1200px;margin:22px auto 0;padding:0 16px}
+.hero-box{background:linear-gradient(135deg,#101828,#344054);color:#fff;border-radius:18px;padding:26px}
+.hero h2{font-size:30px;margin:0 0 8px}.hero p{color:#e4e7ec;line-height:1.7;margin:0;max-width:800px}
+.adslot{max-width:1200px;margin:18px auto;padding:0 16px}
+.adbox{min-height:100px;border:1px dashed #98a2b3;background:#f9fafb;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#667085;font-size:13px;text-align:center;padding:16px}
+.info-wrap{max-width:1200px;margin:0 auto 28px;padding:0 16px}
+.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.info-card{background:white;border:1px solid #d6dce5;border-radius:14px;padding:18px}
+.info-card h3{margin:0 0 8px;font-size:17px}.info-card p{margin:0;color:#667085;line-height:1.7;font-size:14px}
+.info-card a{display:inline-block;margin-top:12px;color:#175cd3;text-decoration:none;font-weight:700;font-size:14px}
+.site-footer{margin-top:30px;background:#101828;color:#98a2b3}
+.footer-inner{max-width:1200px;margin:auto;padding:28px 16px;display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.site-footer a{color:#d0d5dd;text-decoration:none;margin-right:12px}
+.disclaimer{font-size:12px;line-height:1.7;margin-top:12px}
+@media(max-width:760px){
+ .sitebar-inner{align-items:flex-start;flex-direction:column;gap:8px}.nav{margin-left:0;gap:12px}
+ .hero h2{font-size:24px}.info-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="sitebar">
+  <div class="sitebar-inner">
+    <a class="brand" href="index.html">Servo<b>Cable</b>Find</a>
+    <nav class="nav" aria-label="주 메뉴">
+      <a href="index.html">Cable Finder</a>
+      <a href="guides.html">Cable Guide</a>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-box">
+    <h2>Servo Cable Finder</h2>
+    <p>Delta A2 · B2 · A3 · B3 드라이브와 모터 조합에 따른 Power / Encoder cable을 빠르게 찾는 기술 도구입니다. 실제 적용 전 공식 Delta 매뉴얼의 최신 조합표를 반드시 확인하세요.</p>
+  </div>
+</section>
+<div class="adslot"><div class="adbox">ADVERTISEMENT AREA<br>AdSense 승인 후 이 영역에 광고 코드를 삽입합니다.</div></div>
+
+<div class="wrap">
+<h1>Delta Servo Cable Selector <span class="badge">v11.2</span></h1>
+<div class="sub">
+모터 모델 DB를 실제 세대별 표기 방식으로 다시 구성했습니다.
+A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기준으로 케이블을 선택합니다.
+</div>
+
+<div class="card"><div class="grid">
+<div><label>드라이브 시리즈</label><select id="ds"></select></div>
+<div><label>드라이브 모델</label><select id="drive"></select></div>
+<div><label>모터 시리즈</label><select id="ms"></select></div>
+<div><label>모터 모델</label><select id="motor"></select></div>
+<div><label>케이블 길이</label><select id="len"><option value="3">3 m</option><option value="5">5 m</option><option value="10">10 m</option><option value="20">20 m</option></select></div>
+<div><label>케이블 타입</label><select id="flex"><option value="std">비가동 / Standard</option><option value="flex">가동 / Flexible</option></select></div>
+<div><label>브레이크</label><select id="brake"><option value="no">없음</option><option value="yes">있음</option></select></div>
+<div><label>엔코더 종류</label><select id="encType"><option value="inc">Incremental</option><option value="abs">Absolute</option></select></div>
+</div></div>
+
+<div class="card"><div id="status" class="status">-</div></div>
+
+<div class="card"><div class="results">
+<div class="res"><h3>POWER CABLE</h3><div id="power" class="pn">-</div><div id="powerMeta" class="meta"></div></div>
+<div class="res"><h3>ENCODER CABLE</h3><div id="encoder" class="pn">-</div><div id="encoderMeta" class="meta"></div></div>
+</div></div>
+
+<div class="card"><table>
+<tr><th>드라이브 정격</th><td id="dw">-</td></tr>
+<tr><th>모터 정격 / 프레임</th><td id="mw">-</td></tr>
+<tr><th>모터 세대 / 체결 그룹</th><td id="grp">-</td></tr>
+<tr><th>Power connector 기준</th><td id="pconn">-</td></tr>
+<tr><th>Encoder connector 기준</th><td id="econn">-</td></tr>
+<tr><th>판정 근거</th><td id="basis">-</td></tr>
+</table></div>
+
+
+
+
+
+
+
+
+<div class="card note" style="border:2px solid #7f56d9">
+<b>B2 드라이브 케이블 표기 규칙</b><br>
+B2 Encoder: 1 kW 미만은 <b>ASD-B2EN00XX</b>, 1 kW 이상은 <b>ASD-B2EN10XX</b>로 표기합니다.<br>
+예: 3 m 비가동형 → <b>ASD-B2EN0003-N</b> / <b>ASD-B2EN1003-N</b><br>
+가동형은 다른 케이블과 동일하게 <b>-A</b>, 비가동형은 <b>-N</b>을 붙입니다.<br>
+B2 Power cable은 <b>A2 드라이브 Power cable과 동일한 명칭 체계</b>를 사용합니다.<br><br>
+<b>호환성:</b> B2 드라이브 + A2/A3/B3 모터는 조합 불가 상태를 유지합니다.
+</div>
+<div class="card note" style="border:2px solid #12b76a">
+<b>A2 드라이브 케이블 DB</b><br>
+A2 Power / Encoder 케이블도 셀렉터 공통 표기 규칙을 적용합니다.<br>
+<b>-A = 가동형 / -N = 비가동형</b><br>
+예: <b>ASD-ABPW0003-N</b>, <b>ASD-ABPW0003-A</b>, <b>ASD-CAEN1003-N</b>, <b>ASD-CAEN1003-A</b><br>
+B2 Power cable도 A2 Power cable과 동일한 명칭 체계 및 동일한 -A/-N 표기를 사용합니다.
+</div>
+<div class="card note" style="border:2px solid #155eef">
+<b>A3 선택 시 A2 파워케이블 참조 표시</b><br>
+A3 드라이브 + A2/B2 모터 선택 시 Power 결과 뒤 괄호에 <b>A2 매뉴얼 기준 파워케이블</b>을 함께 표시합니다.<br>
+예: <b>ACS3-CAPW1203-1.5-N (A2: ASD-CAPW1003)</b><br>
+A2 매뉴얼에서 확인되는 표준 완제품 길이는 3 m / 5 m 기준이며, 모터측 커넥터가 같은 그룹인 경우의 참조값입니다.
+</div>
+<div class="card note" style="border:2px solid #f79009">
+<b>Encoder type 표기 수정</b><br>
+Incremental → <b>CAEN</b> 계열<br>
+Absolute → <b>CAEA</b> 계열<br>
+케이블 타입 suffix는 기존 규칙대로 <b>-A = 가동형, -N = 비가동형</b>입니다.<br>
+예: Incremental 3 m 가동형 → ACS3-CAEN1003-A / Absolute 3 m 가동형 → ACS3-CAEA1003-A
+</div>
+<div class="card note" style="border:2px solid #7f56d9">
+<b>Power cable 용량 suffix 추가</b><br>
+Power cable 품번의 용량 표기는 <b>1 kW 초과 모터에만</b> 붙입니다.<br>
+예: 0.75 kW / 1 kW → 용량표기 없음, 1.5 kW 비가동형 → <b>…-1.5-N</b>, 2 kW 가동형 → <b>…-2-A</b><br>
+Encoder cable에는 용량 suffix를 붙이지 않습니다.
+</div>
+<div class="card note" style="border:2px solid #067647">
+<b>B3 드라이브 DB 추가</b><br>
+ASDA-B3 매뉴얼 Appendix B 기준으로 B3 power/encoder cable family를 추가했습니다.<br>
+F80 이하: Power 31XX / Brake 41XX / Encoder 10XX<br>
+F100~F130: Power 32XX / Brake 42XX / Encoder 27XX<br>
+F180: Power 34XX / Brake 44XX / Encoder 27XX<br>
+표시는 기존 요청대로 <b>CAPW / CAEN + -A(가동형), -N(비가동형)</b> 규칙을 사용합니다.
+</div>
+<div class="card note" style="border:2px solid #175cd3">
+<b>사내 케이블 품번 표기 규칙</b><br>
+Power cable: <b>ACS3-CAPW…-A</b> = 가동형 / <b>ACS3-CAPW…-N</b> = 비가동형<br>
+Encoder cable: <b>ACS3-CAEN…-A</b> = 가동형 / <b>ACS3-CAEN…-N</b> = 비가동형<br>
+예: <b>ACS3-CAPW1003-A</b> (가동형), <b>ACS3-CAPW1003-N</b> (비가동형)
+</div>
+<div class="card note">
+<b>모델명 기준</b><br>
+A2: ECMA-C10401…, ECMA-E11315… 형식<br>
+B2: ECMA-C20401…, ECMA-E21315… 형식<br>
+B3: ECM-B3L-C20401RS1, ECM-B3M-E21315RS1처럼 B2 용량코드 계열에 B3 사양코드가 추가되는 형식.<br><br>
+※ 모터 모델명은 브레이크/축/오일실 suffix를 제외한 기본 형식으로 표시하며, 케이블 선정은 정격·프레임·세대 connector group을 기준으로 합니다.
+</div>
+</div>
+
+<script>
+const DRIVES={
+ A2:[["ASD-A2-0121",100],["ASD-A2-0221",200],["ASD-A2-0421",400],["ASD-A2-0721",750],["ASD-A2-1021",1000],["ASD-A2-1521",1500],["ASD-A2-2023",2000],["ASD-A2-3023",3000]],
+ B2:[["ASD-B2-0121",100],["ASD-B2-0221",200],["ASD-B2-0421",400],["ASD-B2-0721",750],["ASD-B2-1021",1000],["ASD-B2-1521",1500],["ASD-B2-2023",2000],["ASD-B2-3023",3000]],
+ A3:[["ASD-A3-0121",100],["ASD-A3-0221",200],["ASD-A3-0421",400],["ASD-A3-0721",750],["ASD-A3-1021",1000],["ASD-A3-1521",1500],["ASD-A3-2023",2000],["ASD-A3-3023",3000]],
+ B3:[["ASD-B3-0121",100],["ASD-B3-0221",200],["ASD-B3-0421",400],["ASD-B3-0721",750],["ASD-B3-1021",1000],["ASD-B3-1521",1500],["ASD-B3-2023",2000],["ASD-B3-3023",3000]]
+};
+
+const MOTORS={
+ A2:[
+  ["ECMA-C10401",100,"F40"],["ECMA-C10602",200,"F60"],["ECMA-C10604",400,"F60"],["ECMA-C10804",400,"F80"],["ECMA-C10807",750,"F80"],
+  ["ECMA-C11010",1000,"F100"],["ECMA-E11310",1000,"F130"],["ECMA-E11315",1500,"F130"],["ECMA-C11020",2000,"F100"],["ECMA-E11320",2000,"F130"],
+  ["ECMA-E11820",2000,"F180"],["ECMA-E11830",3000,"F180"],["ECMA-F11830",3000,"F180"]
+ ],
+ B2:[
+  ["ECMA-C20401",100,"F40"],["ECMA-C20602",200,"F60"],["ECMA-C20604",400,"F60"],["ECMA-C20804",400,"F80"],["ECMA-C20807",750,"F80"],
+  ["ECMA-C21010",1000,"F100"],["ECMA-E21310",1000,"F130"],["ECMA-E21315",1500,"F130"],["ECMA-C21020",2000,"F100"],["ECMA-E21320",2000,"F130"],
+  ["ECMA-E21820",2000,"F180"],["ECMA-E21830",3000,"F180"],["ECMA-F21830",3000,"F180"]
+ ],
+ A3:[
+  ["ECM-A3L-C20401",100,"F40"],["ECM-A3M-C20602",200,"F60"],["ECM-A3M-C20604",400,"F60"],["ECM-A3M-C20804",400,"F80"],["ECM-A3M-C20807",750,"F80"],
+  ["ECMC-CW1010",1000,"F100"],["ECMC-EW1310",1000,"F130"],["ECMC-EW1315",1500,"F130"],["ECMC-EW1320",2000,"F130"],["ECMC-EW1820",2000,"F180"],["ECMC-EW1830",3000,"F180"]
+ ],
+ B3:[
+  ["ECM-B3L-C20401",100,"F40"],["ECM-B3M-C20602",200,"F60"],["ECM-B3M-C20604",400,"F60"],["ECM-B3M-C20804",400,"F80"],["ECM-B3M-C20807",750,"F80"],
+  ["ECM-B3M-E21310",1000,"F130"],["ECM-B3M-E21315",1500,"F130"],["ECM-B3M-E21320",2000,"F130"],["ECM-B3M-E21820",2000,"F180"],["ECM-B3M-E21830",3000,"F180"]
+ ]
+};
+
+const $=id=>document.getElementById(id);
+const opt=(v,t=v)=>`<option value="${v}">${t}</option>`;
+function driveInfo(){return DRIVES[$("ds").value].find(x=>x[0]===$("drive").value)}
+function motorInfo(){return MOTORS[$("ms").value].find(x=>x[0]===$("motor").value)}
+function refreshDrive(){
+ $("drive").innerHTML=DRIVES[$("ds").value].map(x=>opt(x[0])).join("");
+ calc();
+}
+function refreshMotor(){
+ $("motor").innerHTML=MOTORS[$("ms").value].map(x=>opt(x[0])).join("");
+ calc();
+}
+function lengthCode(){return String(+$("len").value).padStart(2,"0")}
+function oldGroup(ms){return ["A2","B2","A3"].includes(ms)}
+
+
+function powerCapacitySuffix(w){
+ if(w<=1000) return "";
+ const kw=w/1000;
+ return "-"+(Number.isInteger(kw)?kw.toFixed(0):kw.toString());
+}
+
+
+function a2ReferencePower(ms,m,L,brake){
+ // A2 manual reference cable: drive side is U/V/W/PE bare-wire termination.
+ // Therefore this is a useful reference only when the motor-side connector group also matches.
+ if(!["A2","B2"].includes(ms)) return "";
+ if(![3,5].includes(L)) return "A2: 3/5 m 표준품만 확인";
+ const xx=String(L).padStart(2,"0");
+ const model=m[0], f=m[2], w=m[1];
+
+ // A2 small ECMA low-inertia group (JOWLE motor-side connector)
+ if(["F40","F60","F80"].includes(f)){
+   return `A2: ASD-ABPW${brake==="yes"?"01":"00"}${xx}`;
+ }
+
+ // A2 manual: E1310 / E1315 and same 20-18S old connector group
+ if(["F100","F130"].includes(f) && w<=1500){
+   return `A2: ASD-CAPW${brake==="yes"?"11":"10"}${xx}`;
+ }
+
+ // A2 manual: E1820 / E1830 / F1830 F180 group
+ if(f==="F180" && w>=2000){
+   return `A2: ASD-CAPW${brake==="yes"?"21":"20"}${xx}`;
+ }
+
+ return "A2: 대응 품번 별도 확인";
+}
+
+function withA2Reference(ds,ms,m,L,brake,powerModel){
+ if(ds!=="A3" || !powerModel || !powerModel.startsWith("ACS3")) return powerModel;
+ const ref=a2ReferencePower(ms,m,L,brake);
+ return ref ? `${powerModel} (${ref})` : powerModel;
+}
+
+
+function a2Power(ms,m,L,flex,brake){
+ const model=m[0], f=m[2], w=m[1], xx=String(L).padStart(2,"0"), suffix=flex==="flex"?"-A":"-N";
+ if(!["A2","B2"].includes(ms))
+   return ["조합 불가","A2/B2 드라이브는 A3/B3 모터와 엔코더 분해능 세대가 달라 사용할 수 없습니다."];
+ if(![3,5].includes(L))
+   return ["A2 매뉴얼: 3 m / 5 m 표준품만 확인","현재 입력된 A2 매뉴얼 Appendix A의 완제품 케이블 길이는 3 m / 5 m 기준입니다."];
+
+ // F40~F80 low-inertia quick connector group
+ if(["F40","F60","F80"].includes(f)){
+   return [`ASD-ABPW${brake==="yes"?"01":"00"}${xx}${suffix}`,
+           "A2 manual Appendix A: F40~F80 low-inertia ECMA/B2-equivalent motor power cable."];
+ }
+
+ // 1 kW / 1.5 kW F100~F130
+ if((w===1000 || w===1500) && ["F100","F130"].includes(f)){
+   return [`ASD-CAPW${brake==="yes"?"11":"10"}${xx}${suffix}`,
+           "A2 manual Appendix A: 1~1.5 kW F100/F130 power cable, connector ASD-CAPW1000."];
+ }
+
+ // 2 kW F100/F130: C11020/E11320 family and B2 equivalents
+ if(w===2000 && ["F100","F130"].includes(f)){
+   return [`ASD-A2PW${brake==="yes"?"11":"10"}${xx}${suffix}`,
+           "A2 manual Appendix A: 2 kW C11020/E11320 family power cable, connector ASD-CAPW1000."];
+ }
+
+ // 2~3 kW F180: E11820/E11830/F11830 and B2 equivalents
+ if(f==="F180" && (w===2000 || w===3000)){
+   return [`ASD-CAPW${brake==="yes"?"21":"20"}${xx}${suffix}`,
+           "A2 manual Appendix A: F180 2~3 kW power cable, connector ASD-CAPW2000."];
+ }
+
+ return ["A2 매뉴얼 DB 범위 외","선택한 모터의 A2 케이블 조합표가 현재 DB에 없습니다."];
+}
+
+function a2Encoder(ms,m,L,flex,enc){
+ const f=m[2], xx=String(L).padStart(2,"0"), suffix=flex==="flex"?"-A":"-N";
+ if(!["A2","B2"].includes(ms))
+   return ["조합 불가","A2/B2 드라이브는 A3/B3 모터와 엔코더 분해능 세대가 달라 사용할 수 없습니다."];
+ if(![3,5].includes(L))
+   return ["A2 매뉴얼: 3 m / 5 m 표준품만 확인","현재 입력된 A2 매뉴얼 Appendix A의 완제품 케이블 길이는 3 m / 5 m 기준입니다."];
+
+ // Small ECMA/B2-equivalent quick-connector group
+ if(["F40","F60","F80"].includes(f)){
+   if(enc==="abs")
+     return [`ASD-A2EB00${xx}${suffix}`,"A2 manual absolute encoder cable, small quick-connector group."];
+   return [`ASD-ABEN00${xx}${suffix}`,"A2 manual incremental encoder cable, small quick-connector group."];
+ }
+
+ // F100~F180 military encoder connector group 3106A-20-29S
+ if(["F100","F130","F180"].includes(f)){
+   if(enc==="abs")
+     return [`ASD-A2EB10${xx}${suffix}`,"A2 manual absolute encoder cable, military connector group."];
+   return [`ASD-CAEN10${xx}${suffix}`,"A2 manual incremental encoder cable, military connector group 3106A-20-29S."];
+ }
+
+ return ["A2 매뉴얼 DB 범위 외","선택한 모터의 A2 엔코더 케이블 조합표가 현재 DB에 없습니다."];
+}
+
+function a3Encoder(ms,m,L,flex,enc){
+ const f=m[2],xx=String(L).padStart(2,"0");
+ if(["F40","F60","F80"].includes(f)){
+  const prefix=enc==="abs"?"ACS3-CAEA10":"ACS3-CAEN10";
+  return [prefix+xx+(flex==="flex"?"-A":"-N"),
+          `F40~F80 ${enc==="abs"?"Absolute":"Incremental"} 엔코더 그룹 · -A 가동형 / -N 비가동형`];
+ }
+ if(oldGroup(ms) && ["F100","F130","F180"].includes(f)){
+  if(![3,5].includes(L)) return ["표준품 없음","ECMC(old-series) 엔코더는 매뉴얼상 3 m / 5 m"];
+  const prefix=enc==="abs"?"ACS3-CAEA30":"ACS3-CAEN30";
+  return [prefix+xx+(flex==="flex"?"-A":"-N"),
+          `ECMC/A2/B2 old-series ${enc==="abs"?"Absolute":"Incremental"}, motor side 3106A-20-29S · -A 가동형 / -N 비가동형`];
+ }
+ if(ms==="B3" && ["F100","F130","F180"].includes(f)){
+  const prefix=enc==="abs"?"ACS3-CAEA27":"ACS3-CAEN27";
+  return [prefix+xx+(flex==="flex"?"-A":"-N"),
+          `B3 F100~F180 ${enc==="abs"?"Absolute":"Incremental"} 엔코더 그룹 · -A 가동형 / -N 비가동형`];
+ }
+ return ["확인 필요","A3 매뉴얼 DB 범위 외"];
+}
+
+function a3Power(ms,m,L,flex,brake,dw){
+ const f=m[2],xx=String(L).padStart(2,"0");
+ if(["F40","F60","F80"].includes(f)){
+  const prefix=brake==="yes"?"ACS3-CAPW21":"ACS3-CAPW11";
+  return [prefix+xx+powerCapacitySuffix(m[1])+(flex==="flex"?"-A":"-N"),"F40~F80 공용 power 그룹 · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+ }
+ if(oldGroup(ms) && ["F100","F130"].includes(f)){
+  if(![3,5].includes(L)) return ["표준품 없음","ECMC F100~F130 power는 3 m / 5 m"];
+  const fam=dw<=1500?(brake==="yes"?"22":"12"):(brake==="yes"?"23":"13");
+  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,`ECMC/A2/B2 F100~F130, 3106A-20-18S / A3 ${dw<=1500?"≤1.5 kW":">1.5 kW"} · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)`];
+ }
+ if(oldGroup(ms) && f==="F180"){
+  if(![3,5].includes(L)) return ["표준품 없음","ECMC F180 power는 3 m / 5 m"];
+  return [`ACS3-CAPW${brake==="yes"?"24":"14"}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,"ECMC/A2/B2 F180, 3106A-24-11S · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+ }
+ if(ms==="B3" && ["F100","F130"].includes(f)){
+  if(![3,5].includes(L)) return ["표준품 없음","B3 F100~F130 power는 3 m / 5 m"];
+  return [`ACS3-${brake==="yes"?"CAPW63":"CAPW53"}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,"B3 F100~F130, 3106A-18-10S · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+ }
+ if(ms==="B3" && f==="F180"){
+  if(![3,5].includes(L)) return ["표준품 없음","B3 F180 power는 3 m / 5 m"];
+  return [`ACS3-${brake==="yes"?"CAPW64":"CAPW54"}${xx}${powerCapacitySuffix(m[1])}${flex==="flex"?"-A":"-N"}`,"B3 F180, 3106A-22-22S · -A 가동형 / -N 비가동형 · 마지막은 모터용량(kW)"];
+ }
+ return ["확인 필요","A3 매뉴얼 DB 범위 외"];
+}
+
+
+
+function b2Power(ms,m,L,flex,brake){
+ if(ms!=="B2")
+   return ["조합 불가","B2 드라이브는 B2 모터 전용입니다."];
+
+ // B2 power cable naming is intentionally unified with the A2-drive power cable naming.
+ return a2Power("B2",m,L,flex,brake);
+}
+
+function b2Encoder(ms,m,L,flex,enc){
+ const w=m[1], xx=String(L).padStart(2,"0");
+ if(ms!=="B2")
+   return ["조합 불가","B2 드라이브는 B2 모터 전용입니다."];
+ if(enc==="abs")
+   return ["조합 불가","현재 B2 DB는 Incremental encoder 기준입니다."];
+
+ // User-defined B2 naming rule:
+ // <1 kW  : ASD-B2EN00 + cable length (e.g. ASD-B2EN0003)
+ // >=1 kW : ASD-B2EN10 + cable length (e.g. ASD-B2EN1003)
+ // Keep the common internal flex notation: -A flexible / -N non-flexible.
+ const fam=w<1000?"00":"10";
+ const suffix=flex==="flex"?"-A":"-N";
+ return [`ASD-B2EN${fam}${xx}${suffix}`,
+         `${w<1000?"1 kW 미만":"1 kW 이상"} B2 encoder cable · ${L} m · ${flex==="flex"?"가동형 (-A)":"비가동형 (-N)"}`];
+}
+
+function b3Encoder(ms,m,L,flex,enc){
+ const f=m[2],xx=String(L).padStart(2,"0");
+ const suffix=flex==="flex"?"-A":"-N";
+ const typePrefix=enc==="abs"?"CAEA":"CAEN";
+ if(["F40","F60","F80"].includes(f))
+  return [`ACS3-${typePrefix}10${xx}${suffix}`,
+          `B3 manual: F80 이하 ${enc==="abs"?"Absolute":"Incremental"} encoder family 10XX · -A 가동형 / -N 비가동형`];
+ if(["F100","F130","F180"].includes(f))
+  return [`ACS3-${typePrefix}27${xx}${suffix}`,
+          `B3 manual: F100~F180 ${enc==="abs"?"Absolute":"Incremental"} encoder family 27XX · -A 가동형 / -N 비가동형`];
+ return ["확인 필요","B3 매뉴얼 DB 범위 외"];
+}
+
+function b3Power(ms,m,L,flex,brake){
+ const f=m[2],xx=String(L).padStart(2,"0"),suffix=flex==="flex"?"-A":"-N";
+ if(["F40","F60","F80"].includes(f)){
+  const fam=brake==="yes"?"41":"31";
+  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${suffix}`,"B3 manual B.2: F80 이하 31XX / brake 41XX · 사내 표기 -A/-N · 마지막은 모터용량(kW)"];
+ }
+ if(["F100","F130"].includes(f)){
+  const fam=brake==="yes"?"42":"32";
+  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${suffix}`,"B3 manual B.2: F100~F130 32XX / brake 42XX, MIL 18-10S · 사내 표기 -A/-N · 마지막은 모터용량(kW)"];
+ }
+ if(f==="F180"){
+  const fam=brake==="yes"?"44":"34";
+  return [`ACS3-CAPW${fam}${xx}${powerCapacitySuffix(m[1])}${suffix}`,"B3 manual B.2: F180 34XX / brake 44XX, MIL 22-22S · 사내 표기 -A/-N · 마지막은 모터용량(kW)"];
+ }
+ return ["확인 필요","B3 매뉴얼 DB 범위 외"];
+}
+
+function connectorText(ms,m,ds){
+ const f=m[2];
+ if(ds==="B3"){
+  if(["F40","F60","F80"].includes(f)) return ["ASDBCAPW0000/0100 계열","ACS3-CNENC200 + F80 이하 motor connector"];
+  if(["F100","F130"].includes(f)) return ["MIL 18-10S / ACS3-CNPW5200","CMV1-10S / CAEN27 group"];
+  if(f==="F180") return ["MIL 22-22S / ACS3-CNPW5300","CMV1-10S / CAEN27 group"];
+ }
+ if(["F40","F60","F80"].includes(f)) return ["F40~F80 공용 power connector group","ACS3-CNEN1000 계열"];
+ if(oldGroup(ms)) return [f==="F180"?"3106A-24-11S":"3106A-20-18S","3106A-20-29S"];
+ return [f==="F180"?"3106A-22-22S":"3106A-18-10S","B3 F100~F180 / CAEN27 group"];
+}
+
+function calc(){
+ if(!$("drive").value||!$("motor").value)return;
+ const d=driveInfo(),m=motorInfo(),ds=$("ds").value,ms=$("ms").value,L=+$("len").value,fl=$("flex").value,br=$("brake").value,en=$("encType").value;
+ const dw=d[1],mw=m[1];
+ let state="warn",title="Delta 공식 조합 확인 필요",detail="";
+ if(ds==="B2" && ms!=="B2"){
+  state="bad";title="엔코더 분해능 불일치 - 조합 불가";
+  detail="B2 드라이브는 B2 모터 전용입니다. A2/A3/B3 모터는 엔코더 분해능 또는 세대가 맞지 않아 사용할 수 없습니다.";
+ }
+ else if(ds==="A2" && ["A3","B3"].includes(ms)){
+  state="bad";title="엔코더 분해능 불일치 - 조합 불가";
+  detail="A2 드라이브와 A3/B3 모터는 엔코더 세대·분해능이 달라 사용할 수 없습니다.";
+ }
+ else if(dw<mw){state="bad";title="드라이브 용량 부족 - 조합 불가";detail=`모터 ${mw} W > 드라이브 ${dw} W`;}
+ else if(ds==="A3" && ms==="B3" && dw===mw){state="ok";title="Delta 공식 지원 조합 - 사용 가능";detail=`A3 매뉴얼 조합표에 동일 정격 B3 모터 기재`;}
+ else if(ds==="B3" && ms==="B3" && dw===mw){state="ok";title="Delta 공식 지원 조합 - 사용 가능";detail=`B3 매뉴얼 조합표 기준 동일 정격 B3 모터 조합`;}
+ else if(ds==="B3" && ms==="A3" && dw===mw && ["F40","F60","F80"].includes(m[2])){state="ok";title="Delta 공식 지원 조합 - 사용 가능";detail=`B3 매뉴얼의 ECM-A3 소형 모터 조합 지원`;}
+ else if(ds==="A3" && ms==="A3" && dw===mw){state="ok";title="조합 가능";detail="A3 계열 정격 조합";}
+ else if(ds==="A3" && ["A2","B2"].includes(ms) && dw>=mw){state="warn";title="커넥터 매칭 가능 / 공식 조합 확인 필요";detail="A2/B2는 ECMC와 동일 체결 그룹으로 케이블 매칭";}
+ else if(ds==="A2" && ["A2","B2"].includes(ms) && dw===mw){state="ok";title="A2/B2 세대 조합 - 사용 가능";detail="A2/B2 모터 세대는 엔코더 분해능이 호환되며 A2 매뉴얼 케이블 DB를 적용";}
+ else if(ds==="A2" && ["A2","B2"].includes(ms) && dw>mw){state="warn";title="용량 여유 조합 - 공식 조합 확인 필요";detail="A2/B2 엔코더 세대는 호환되지만 Delta 공식 드라이브-모터 조합표는 정격 조합 기준으로 확인 권장";}
+ else if(ds==="B2" && ms==="B2" && dw===mw){state="ok";title="B2 공식 정격 조합 - 사용 가능";detail="ASDA-B2 매뉴얼 Appendix A의 B2 드라이브/B2 모터 정격 조합 기준";}
+ else if(ds==="B2" && ms==="B2" && dw>mw){state="warn";title="B2 공식 조합 확인 필요";detail="드라이브 용량은 충분하지만 선택 모터와의 정확한 공식 조합은 Appendix A 조합표 확인 필요";}
+ else if(ds===ms && dw===mw){state="ok";title="조합 가능";detail="동일 시리즈 정격 조합";}
+ else detail=`드라이브 ${dw} W / 모터 ${mw} W`;
+
+ $("status").innerHTML=`<span class="${state}">${title}</span><br><span class="meta">${detail}</span>`;
+
+ if(state==="bad"){
+  $("power").textContent="조합 불가";$("power").className="pn bad";$("powerMeta").textContent="상위 용량 드라이브를 선택하십시오.";
+  $("encoder").textContent="조합 불가";$("encoder").className="pn bad";$("encoderMeta").textContent="케이블 선택을 중지합니다.";
+ }else if(ds==="A3"){
+  const p=a3Power(ms,m,L,fl,br,dw),e=a3Encoder(ms,m,L,fl,en);
+  const pDisplay=withA2Reference(ds,ms,m,L,br,p[0]);
+  $("power").textContent=pDisplay;$("power").className="pn "+(p[0].startsWith("ACS3")?"ok":"warn");$("powerMeta").textContent=p[1]+(pDisplay!==p[0]?" · 괄호 안은 A2 매뉴얼 기준 파워케이블 참조품번":"");
+  $("encoder").textContent=e[0];$("encoder").className="pn "+(e[0].startsWith("ACS3")?"ok":"warn");$("encoderMeta").textContent=e[1];
+ }else if(ds==="A2"){
+  const p=a2Power(ms,m,L,fl,br),e=a2Encoder(ms,m,L,fl,en);
+  $("power").textContent=p[0];$("power").className="pn "+(p[0].startsWith("ASD-")?"ok":"warn");$("powerMeta").textContent=p[1];
+  $("encoder").textContent=e[0];$("encoder").className="pn "+(e[0].startsWith("ASD-")?"ok":"warn");$("encoderMeta").textContent=e[1];
+ }else if(ds==="B2"){
+  const p=b2Power(ms,m,L,fl,br),e=b2Encoder(ms,m,L,fl,en);
+  $("power").textContent=p[0];$("power").className="pn "+((p[0].startsWith("ASD-")||p[0].startsWith("ASDB"))?"ok":"warn");$("powerMeta").textContent=p[1];
+  $("encoder").textContent=e[0];$("encoder").className="pn "+((e[0].startsWith("ASD-")||e[0].startsWith("ASDB"))?"ok":"warn");$("encoderMeta").textContent=e[1];
+ }else if(ds==="B3"){
+  const p=b3Power(ms,m,L,fl,br),e=b3Encoder(ms,m,L,fl,en);
+  $("power").textContent=p[0];$("power").className="pn "+(p[0].startsWith("ACS3")?"ok":"warn");$("powerMeta").textContent=p[1];
+  $("encoder").textContent=e[0];$("encoder").className="pn "+(e[0].startsWith("ACS3")?"ok":"warn");$("encoderMeta").textContent=e[1];
+ }else{
+  $("power").textContent="해당 시리즈 매뉴얼 DB 추가 필요";$("power").className="pn warn";$("powerMeta").textContent="선택한 드라이브 시리즈의 케이블 DB를 확인하십시오.";
+  $("encoder").textContent="해당 시리즈 매뉴얼 DB 추가 필요";$("encoder").className="pn warn";$("encoderMeta").textContent="선택한 드라이브 시리즈의 케이블 DB를 확인하십시오.";
+ }
+ const c=connectorText(ms,m,ds);
+ $("dw").textContent=`${d[0]} / ${dw} W`;
+ $("mw").textContent=`${m[0]} / ${mw} W / ${m[2]}`;
+ $("grp").textContent=oldGroup(ms) && !["F40","F60","F80"].includes(m[2])?"ECMC(old-series) 동일 체결 그룹":ms==="B3"?"B3 connector group":"소형 공용 connector group";
+ $("pconn").textContent=c[0];$("econn").textContent=c[1];
+ $("basis").textContent=ds==="A3"?"첨부 ASDA-A3 한글 매뉴얼 B-32~B-40":ds==="B3"?"첨부 ASDA-B3 영문 매뉴얼 Appendix B (B.1~B.5, B.18)":ds==="A2"?"ASDA-A2 User Manual Appendix A Accessories / Servo Drive-Motor-Cable combinations":ds==="B2"?"ASDA-B2 User Manual Appendix A Accessories / Servo Drive-Motor-Cable combinations":"공식 매뉴얼 DB";
+}
+
+$("ds").innerHTML=["A2","B2","A3","B3"].map(x=>opt(x)).join("");
+$("ms").innerHTML=["A2","B2","A3","B3"].map(x=>opt(x)).join("");
+$("ds").value="A3";$("ms").value="B3";
+refreshDrive();refreshMotor();
+$("drive").value="ASD-A3-0721";$("motor").value="ECM-B3M-C20807";calc();
+
+$("ds").addEventListener("change",refreshDrive);
+$("ms").addEventListener("change",refreshMotor);
+["drive","motor","len","flex","brake","encType"].forEach(id=>$(id).addEventListener("change",calc));
+</script>
+
+<section class="info-wrap">
+  <div class="info-grid">
+    <article class="info-card">
+      <h3>A2 / B2 Cable Guide</h3>
+      <p>A2와 B2의 파워·엔코더 케이블 표기 방식과 프레임별 케이블 그룹을 정리합니다.</p>
+      <a href="guides.html#a2-b2">가이드 보기 →</a>
+    </article>
+    <article class="info-card">
+      <h3>A3 / B3 Cable Guide</h3>
+      <p>A3/B3 모터의 소형 프레임과 1 kW 이상 군용 커넥터 그룹 차이를 확인할 수 있습니다.</p>
+      <a href="guides.html#a3-b3">가이드 보기 →</a>
+    </article>
+    <article class="info-card">
+      <h3>Compatibility Notice</h3>
+      <p>커넥터가 체결된다고 공식 지원 조합을 의미하지 않습니다. 용량과 엔코더 세대를 함께 확인해야 합니다.</p>
+      <a href="guides.html#compatibility">호환성 안내 →</a>
+    </article>
+  </div>
+</section>
+<div class="adslot"><div class="adbox">ADVERTISEMENT AREA<br>검색 결과 하단 광고 슬롯 예시</div></div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <strong style="color:white">ServoCableFind</strong>
+      <div class="disclaimer">This is an independent technical reference tool and is not an official Delta Electronics website. Product names and trademarks belong to their respective owners. Always verify cable and compatibility information with the latest official manufacturer documentation before purchase or installation.</div>
+    </div>
+    <div>
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body></html>
