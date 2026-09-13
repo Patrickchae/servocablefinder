@@ -77,7 +77,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;borde
 </section>
 
 <div class="wrap">
-<h1>Delta Servo Cable Selector <span class="badge">v11.3</span></h1>
+<h1>Delta Servo Cable Selector <span class="badge">v11.4</span></h1>
 <div class="sub">
 모터 모델 DB를 실제 세대별 표기 방식으로 다시 구성했습니다.
 A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기준으로 케이블을 선택합니다.
@@ -118,6 +118,12 @@ A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기
 
 
 
+
+<div class="card note" style="border:2px solid #2e90fa">
+<b>Power cable 선택 기준 수정</b><br>
+Power cable은 <b>선택한 모터의 시리즈·용량·프레임</b>을 기준으로 결정합니다.<br>
+드라이브 용량은 호환 가능 여부에만 사용하며, 같은 모터를 선택한 상태에서 드라이브 용량만 변경해도 Power cable 품번은 바뀌지 않습니다.
+</div>
 <div class="card note" style="border:2px solid #f79009">
 <b>Power cable 표기 순서</b><br>
 모든 드라이브의 <b>1 kW 이상 Power cable</b>은 <b>기본 품번 + 길이 + 가동/비가동 + kW</b> 순서로 표시합니다.<br>
@@ -346,15 +352,17 @@ function a3Encoder(ms,m,L,flex,enc){
 }
 
 function a3Power(ms,m,L,flex,brake,dw){
- const f=m[2],xx=String(L).padStart(2,"0");
+ const f=m[2], w=m[1], xx=String(L).padStart(2,"0");
+ // IMPORTANT: Power cable family is determined by MOTOR spec, not drive capacity.
+ // Drive capacity is used only for compatibility judgment in calc().
  if(["F40","F60","F80"].includes(f)){
   const prefix=brake==="yes"?"ACS3-CAPW21":"ACS3-CAPW11";
-  return [prefix+xx+(flex==="flex"?"-A":"-N")+powerCapacitySuffix(m[1]),"F40~F80 공용 power 그룹 · -A 가동형 / -N 비가동형 · 가동/비가동 표시 다음은 모터용량(kW)"];
+  return [prefix+xx+(flex==="flex"?"-A":"-N")+powerCapacitySuffix(w),"F40~F80 공용 power 그룹 · 모터 기준 선택 · -A 가동형 / -N 비가동형"];
  }
  if(oldGroup(ms) && ["F100","F130"].includes(f)){
   if(![3,5].includes(L)) return ["표준품 없음","ECMC F100~F130 power는 3 m / 5 m"];
-  const fam=dw<=1500?(brake==="yes"?"22":"12"):(brake==="yes"?"23":"13");
-  return [`ACS3-CAPW${fam}${xx}${flex==="flex"?"-A":"-N"}${powerCapacitySuffix(m[1])}`,`ECMC/A2/B2 F100~F130, 3106A-20-18S / A3 ${dw<=1500?"≤1.5 kW":">1.5 kW"} · -A 가동형 / -N 비가동형 · 가동/비가동 표시 다음은 모터용량(kW)`];
+  const fam=w<=1500?(brake==="yes"?"22":"12"):(brake==="yes"?"23":"13");
+  return [`ACS3-CAPW${fam}${xx}${flex==="flex"?"-A":"-N"}${powerCapacitySuffix(w)}`,`ECMC/A2/B2 F100~F130, 3106A-20-18S · 모터 ${w/1000} kW 기준 선택 · -A 가동형 / -N 비가동형`];
  }
  if(oldGroup(ms) && f==="F180"){
   if(![3,5].includes(L)) return ["표준품 없음","ECMC F180 power는 3 m / 5 m"];
