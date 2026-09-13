@@ -77,7 +77,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;borde
 </section>
 
 <div class="wrap">
-<h1>Delta Servo Cable Selector <span class="badge">v11.4</span></h1>
+<h1>Delta Servo Cable Selector <span class="badge">v11.5</span></h1>
 <div class="sub">
 모터 모델 DB를 실제 세대별 표기 방식으로 다시 구성했습니다.
 A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기준으로 케이블을 선택합니다.
@@ -119,72 +119,13 @@ A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기
 
 
 
-<div class="card note" style="border:2px solid #2e90fa">
-<b>Power cable 선택 기준 수정</b><br>
-Power cable은 <b>선택한 모터의 시리즈·용량·프레임</b>을 기준으로 결정합니다.<br>
-드라이브 용량은 호환 가능 여부에만 사용하며, 같은 모터를 선택한 상태에서 드라이브 용량만 변경해도 Power cable 품번은 바뀌지 않습니다.
-</div>
-<div class="card note" style="border:2px solid #f79009">
-<b>Power cable 표기 순서</b><br>
-모든 드라이브의 <b>1 kW 이상 Power cable</b>은 <b>기본 품번 + 길이 + 가동/비가동 + kW</b> 순서로 표시합니다.<br>
-예: <b>ACS3-CAPW3105-N-1.5</b>, <b>ACS3-CAPW3105-A-1.5</b><br>
-1 kW는 <b>-1</b>, 1.5 kW는 <b>-1.5</b>, 2 kW는 <b>-2</b>처럼 표기합니다.
-</div>
-<div class="card note" style="border:2px solid #7f56d9">
-<b>B2 드라이브 케이블 표기 규칙</b><br>
-B2 Encoder: 1 kW 미만은 <b>ASD-B2EN00XX</b>, 1 kW 이상은 <b>ASD-B2EN10XX</b>로 표기합니다.<br>
-예: 3 m 비가동형 → <b>ASD-B2EN0003-N</b> / <b>ASD-B2EN1003-N</b><br>
-가동형은 다른 케이블과 동일하게 <b>-A</b>, 비가동형은 <b>-N</b>을 붙입니다.<br>
-B2 Power cable은 <b>A2 드라이브 Power cable과 동일한 명칭 체계</b>를 사용합니다.<br><br>
-<b>호환성:</b> B2 드라이브 + A2/A3/B3 모터는 조합 불가 상태를 유지합니다.
-</div>
-<div class="card note" style="border:2px solid #12b76a">
-<b>A2 드라이브 케이블 DB</b><br>
-A2 Power / Encoder 케이블도 셀렉터 공통 표기 규칙을 적용합니다.<br>
-<b>-A = 가동형 / -N = 비가동형</b><br>
-예: <b>ASD-ABPW0003-N</b>, <b>ASD-ABPW0003-A</b>, <b>ASD-CAEN1003-N</b>, <b>ASD-CAEN1003-A</b><br>
-B2 Power cable도 A2 Power cable과 동일한 명칭 체계 및 동일한 -A/-N 표기를 사용합니다.
-</div>
-<div class="card note" style="border:2px solid #155eef">
-<b>A3 선택 시 A2 파워케이블 참조 표시</b><br>
-A3 드라이브 + A2/B2 모터 선택 시 Power 결과 뒤 괄호에 <b>A2 매뉴얼 기준 파워케이블</b>을 함께 표시합니다.<br>
-예: <b>ACS3-CAPW1203-1.5-N (A2: ASD-CAPW1003)</b><br>
-A2 매뉴얼에서 확인되는 표준 완제품 길이는 3 m / 5 m 기준이며, 모터측 커넥터가 같은 그룹인 경우의 참조값입니다.
-</div>
-<div class="card note" style="border:2px solid #f79009">
-<b>Encoder type 표기 수정</b><br>
-Incremental → <b>CAEN</b> 계열<br>
-Absolute → <b>CAEA</b> 계열<br>
-케이블 타입 suffix는 기존 규칙대로 <b>-A = 가동형, -N = 비가동형</b>입니다.<br>
-예: Incremental 3 m 가동형 → ACS3-CAEN1003-A / Absolute 3 m 가동형 → ACS3-CAEA1003-A
-</div>
-<div class="card note" style="border:2px solid #7f56d9">
-<b>Power cable 용량 suffix 추가</b><br>
-Power cable 품번의 용량 표기는 <b>1 kW 초과 모터에만</b> 붙입니다.<br>
-예: 0.75 kW / 1 kW → 용량표기 없음, 1.5 kW 비가동형 → <b>…-1.5-N</b>, 2 kW 가동형 → <b>…-2-A</b><br>
-Encoder cable에는 용량 suffix를 붙이지 않습니다.
-</div>
-<div class="card note" style="border:2px solid #067647">
-<b>B3 드라이브 DB 추가</b><br>
-ASDA-B3 매뉴얼 Appendix B 기준으로 B3 power/encoder cable family를 추가했습니다.<br>
-F80 이하: Power 31XX / Brake 41XX / Encoder 10XX<br>
-F100~F130: Power 32XX / Brake 42XX / Encoder 27XX<br>
-F180: Power 34XX / Brake 44XX / Encoder 27XX<br>
-표시는 기존 요청대로 <b>CAPW / CAEN + -A(가동형), -N(비가동형)</b> 규칙을 사용합니다.
-</div>
-<div class="card note" style="border:2px solid #175cd3">
-<b>사내 케이블 품번 표기 규칙</b><br>
-Power cable: <b>ACS3-CAPW…-A</b> = 가동형 / <b>ACS3-CAPW…-N</b> = 비가동형<br>
-Encoder cable: <b>ACS3-CAEN…-A</b> = 가동형 / <b>ACS3-CAEN…-N</b> = 비가동형<br>
-예: <b>ACS3-CAPW1003-A</b> (가동형), <b>ACS3-CAPW1003-N</b> (비가동형)
-</div>
-<div class="card note">
-<b>모델명 기준</b><br>
-A2: ECMA-C10401…, ECMA-E11315… 형식<br>
-B2: ECMA-C20401…, ECMA-E21315… 형식<br>
-B3: ECM-B3L-C20401RS1, ECM-B3M-E21315RS1처럼 B2 용량코드 계열에 B3 사양코드가 추가되는 형식.<br><br>
-※ 모터 모델명은 브레이크/축/오일실 suffix를 제외한 기본 형식으로 표시하며, 케이블 선정은 정격·프레임·세대 connector group을 기준으로 합니다.
-</div>
+
+
+
+
+
+
+
 </div>
 
 <script>
