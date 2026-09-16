@@ -77,7 +77,7 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;borde
 </section>
 
 <div class="wrap">
-<h1>Delta Servo Cable Selector <span class="badge">v11.6</span></h1>
+<h1>Delta Servo Cable Selector <span class="badge">v11.9</span></h1>
 <div class="sub">
 모터 모델 DB를 실제 세대별 표기 방식으로 다시 구성했습니다.
 A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기준으로 케이블을 선택합니다.
@@ -88,6 +88,7 @@ A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기
 <div><label>드라이브 모델</label><select id="drive"></select></div>
 <div><label>모터 시리즈</label><select id="ms"></select></div>
 <div><label>모터 모델</label><select id="motor"></select></div>
+<div id="connTypeWrap" style="display:none"><label>커넥터 타입</label><select id="connType"><option value="cable">케이블</option><option value="connector">커넥터</option></select></div>
 <div><label>케이블 길이</label><select id="len"><option value="3">3 m</option><option value="5">5 m</option><option value="10">10 m</option><option value="20">20 m</option></select></div>
 <div><label>케이블 타입</label><select id="flex"><option value="std">비가동 / Standard</option><option value="flex">가동 / Flexible</option></select></div>
 <div><label>브레이크</label><select id="brake"><option value="no">없음</option><option value="yes">있음</option></select></div>
@@ -157,16 +158,43 @@ const MOTORS={
  ]
 };
 
+// ASDA-B3 catalog p.21~22: Built-in Motor (connector type) is a B3-only option, frame F40~F80.
+const B3_BUILTIN_MOTORS=[
+ ["ECM-B3L-C20401",100,"F40"],
+ ["ECM-B3M-C20602",200,"F60"],
+ ["ECM-B3M-C20604",400,"F60"],
+ ["ECM-B3M-C20807",750,"F80"]
+];
+
 const $=id=>document.getElementById(id);
 const opt=(v,t=v)=>`<option value="${v}">${t}</option>`;
 function driveInfo(){return DRIVES[$("ds").value].find(x=>x[0]===$("drive").value)}
-function motorInfo(){return MOTORS[$("ms").value].find(x=>x[0]===$("motor").value)}
+function activeMotors(){
+ if($("ms").value==="B3" && $("connType").value==="connector") return B3_BUILTIN_MOTORS;
+ return MOTORS[$("ms").value];
+}
+function motorInfo(){return activeMotors().find(x=>x[0]===$("motor").value)}
 function refreshDrive(){
  $("drive").innerHTML=DRIVES[$("ds").value].map(x=>opt(x[0])).join("");
  calc();
 }
 function refreshMotor(){
- $("motor").innerHTML=MOTORS[$("ms").value].map(x=>opt(x[0])).join("");
+ const isB3=$("ms").value==="B3";
+ const prevModel=$("motor").value;
+ const prevInfo=(MOTORS.B3||[]).find(x=>x[0]===prevModel) || B3_BUILTIN_MOTORS.find(x=>x[0]===prevModel);
+ $("connTypeWrap").style.display=isB3?"block":"none";
+ if(!isB3) $("connType").value="cable";
+ const list=activeMotors();
+ $("motor").innerHTML=list.map(x=>opt(x[0])).join("");
+ // 커넥터 타입 변경 시 기존 모터를 최대한 유지한다.
+ // 동일 모델이 없으면 동일 정격 모터를 선택하고, 그것도 없으면 임의로 100 W로 되돌리지 않는다.
+ let keep=list.find(x=>x[0]===prevModel);
+ if(!keep && prevInfo) keep=list.find(x=>x[1]===prevInfo[1]);
+ if(keep) $("motor").value=keep[0];
+ else if(prevInfo && isB3){
+   $("motor").innerHTML='<option value="">해당 커넥터 타입 지원 모터 없음</option>'+$("motor").innerHTML;
+   $("motor").value="";
+ }
  calc();
 }
 function lengthCode(){return String(+$("len").value).padStart(2,"0")}
@@ -347,6 +375,36 @@ function b2Encoder(ms,m,L,flex,enc){
          `${w<1000?"1 kW 미만":"1 kW 이상"} B2 encoder cable · ${L} m · ${flex==="flex"?"가동형 (-A)":"비가동형 (-N)"}`];
 }
 
+function b3BuiltInPower(m,L,flex,brake){
+ const xx=String(L).padStart(2,"0");
+ const torsion=flex==="flex", suffix=torsion?"-A":"-N";
+ // Catalog p.21~22. A = cable exit toward motor shaft, B = toward encoder.
+ let a,b;
+ if(brake==="yes"){
+  a=`ACS3-${torsion?"AFPRSS":"AFPWSS"}${xx}`;
+  b=`ACS3-${torsion?"ABPRSS":"ABPWSS"}${xx}`;
+ }else{
+  a=`ACS3-${torsion?"AFPRSR":"AFPWSR"}${xx}`;
+  b=`ACS3-${torsion?"ABPRSR":"ABPWSR"}${xx}`;
+ }
+ return [`축방향: ${a}${suffix} / 엔코더방향: ${b}${suffix}`,
+         `B3 Built-in Motor F80 이하 · ${torsion?"Torsion-Resistant":"Standard"} · 카탈로그는 케이블 인출방향 2종을 별도 품번으로 구분`];
+}
+
+function b3BuiltInEncoder(m,L,flex,enc){
+ const xx=String(L).padStart(2,"0"), torsion=flex==="flex", suffix=torsion?"-A":"-N";
+ let a,b;
+ if(enc==="abs"){
+  a=`ACS3-${torsion?"AFERSA":"AFEASA"}${xx}`;
+  b=`ACS3-${torsion?"ABERSA":"ABEASA"}${xx}`;
+ }else{
+  a=`ACS3-${torsion?"AFERSI":"AFEASI"}${xx}`;
+  b=`ACS3-${torsion?"ABERSI":"ABEASI"}${xx}`;
+ }
+ return [`축방향: ${a}${suffix} / 엔코더방향: ${b}${suffix}`,
+         `B3 Built-in Motor F80 이하 · ${enc==="abs"?"Absolute":"Incremental"} · ${torsion?"Torsion-Resistant":"Standard"} · 인출방향별 품번 표시`];
+}
+
 function b3Encoder(ms,m,L,flex,enc){
  const f=m[2],xx=String(L).padStart(2,"0");
  const suffix=flex==="flex"?"-A":"-N";
@@ -390,8 +448,14 @@ function connectorText(ms,m,ds){
 }
 
 function calc(){
- if(!$("drive").value||!$("motor").value)return;
- const d=driveInfo(),m=motorInfo(),ds=$("ds").value,ms=$("ms").value,L=+$("len").value,fl=$("flex").value,br=$("brake").value,en=$("encType").value;
+ if(!$("drive").value||!$("motor").value){
+   if($("motor").value===""){
+     $("status").innerHTML='<span class="warn">선택한 커넥터 타입에서 동일 정격 모터를 확인할 수 없습니다.</span>';
+     $("power").textContent="-"; $("encoder").textContent="-";
+   }
+   return;
+ }
+ const d=driveInfo(),m=motorInfo(),ds=$("ds").value,ms=$("ms").value,L=+$("len").value,fl=$("flex").value,br=$("brake").value,en=$("encType").value,ct=$("connType").value;
  const dw=d[1],mw=m[1];
  let state="warn",title="Delta 공식 조합 확인 필요",detail="";
  if(ds==="B2" && ms!=="B2"){
@@ -404,7 +468,7 @@ function calc(){
  }
  else if(dw<mw){state="bad";title="드라이브 용량 부족 - 조합 불가";detail=`모터 ${mw} W > 드라이브 ${dw} W`;}
  else if(ds==="A3" && ms==="B3" && dw===mw){state="ok";title="Delta 공식 지원 조합 - 사용 가능";detail=`A3 매뉴얼 조합표에 동일 정격 B3 모터 기재`;}
- else if(ds==="B3" && ms==="B3" && dw===mw){state="ok";title="Delta 공식 지원 조합 - 사용 가능";detail=`B3 매뉴얼 조합표 기준 동일 정격 B3 모터 조합`;}
+ else if(ds==="B3" && ms==="B3" && dw===mw){state="ok";title="Delta 공식 지원 조합 - 사용 가능";detail=ct==="connector"?"B3 카탈로그 Built-in Motor 조합표 기준":"B3 매뉴얼 조합표 기준 동일 정격 B3 모터 조합";}
  else if(ds==="B3" && ms==="A3" && dw===mw && ["F40","F60","F80"].includes(m[2])){state="ok";title="Delta 공식 지원 조합 - 사용 가능";detail=`B3 매뉴얼의 ECM-A3 소형 모터 조합 지원`;}
  else if(ds==="A3" && ms==="A3" && dw===mw){state="ok";title="조합 가능";detail="A3 계열 정격 조합";}
  else if(ds==="A3" && ["A2","B2"].includes(ms) && dw>=mw){state="warn";title="커넥터 매칭 가능 / 공식 조합 확인 필요";detail="A2/B2는 ECMC와 동일 체결 그룹으로 케이블 매칭";}
@@ -421,8 +485,9 @@ function calc(){
   $("power").textContent="조합 불가";$("power").className="pn bad";$("powerMeta").textContent="상위 용량 드라이브를 선택하십시오.";
   $("encoder").textContent="조합 불가";$("encoder").className="pn bad";$("encoderMeta").textContent="케이블 선택을 중지합니다.";
  }else if(ds==="A3"){
-  const p=a3Power(ms,m,L,fl,br,dw),e=a3Encoder(ms,m,L,fl,en);
-  const pDisplay=withA2Reference(ds,ms,m,L,fl,br,p[0]);
+  const p=(ms==="B3" && ct==="connector")?b3BuiltInPower(m,L,fl,br):a3Power(ms,m,L,fl,br,dw);
+  const e=(ms==="B3" && ct==="connector")?b3BuiltInEncoder(m,L,fl,en):a3Encoder(ms,m,L,fl,en);
+  const pDisplay=(ms==="B3" && ct==="connector")?p[0]:withA2Reference(ds,ms,m,L,fl,br,p[0]);
   $("power").textContent=pDisplay;$("power").className="pn "+(p[0].startsWith("ACS3")?"ok":"warn");$("powerMeta").textContent=p[1]+(pDisplay!==p[0]?" · 괄호 안은 A2 매뉴얼 기준 파워케이블 참조품번":"");
   $("encoder").textContent=e[0];$("encoder").className="pn "+(e[0].startsWith("ACS3")?"ok":"warn");$("encoderMeta").textContent=e[1];
  }else if(ds==="A2"){
@@ -434,19 +499,21 @@ function calc(){
   $("power").textContent=p[0];$("power").className="pn "+((p[0].startsWith("ASD-")||p[0].startsWith("ASDB"))?"ok":"warn");$("powerMeta").textContent=p[1];
   $("encoder").textContent=e[0];$("encoder").className="pn "+((e[0].startsWith("ASD-")||e[0].startsWith("ASDB"))?"ok":"warn");$("encoderMeta").textContent=e[1];
  }else if(ds==="B3"){
-  const p=b3Power(ms,m,L,fl,br),e=b3Encoder(ms,m,L,fl,en);
+  const p=(ms==="B3" && ct==="connector")?b3BuiltInPower(m,L,fl,br):b3Power(ms,m,L,fl,br);
+  const e=(ms==="B3" && ct==="connector")?b3BuiltInEncoder(m,L,fl,en):b3Encoder(ms,m,L,fl,en);
   $("power").textContent=p[0];$("power").className="pn "+(p[0].startsWith("ACS3")?"ok":"warn");$("powerMeta").textContent=p[1];
   $("encoder").textContent=e[0];$("encoder").className="pn "+(e[0].startsWith("ACS3")?"ok":"warn");$("encoderMeta").textContent=e[1];
  }else{
   $("power").textContent="해당 시리즈 매뉴얼 DB 추가 필요";$("power").className="pn warn";$("powerMeta").textContent="선택한 드라이브 시리즈의 케이블 DB를 확인하십시오.";
   $("encoder").textContent="해당 시리즈 매뉴얼 DB 추가 필요";$("encoder").className="pn warn";$("encoderMeta").textContent="선택한 드라이브 시리즈의 케이블 DB를 확인하십시오.";
  }
- const c=connectorText(ms,m,ds);
+ let c=connectorText(ms,m,ds);
+ if(ms==="B3" && ct==="connector") c=["ACS3-AFPWSS00 / ACS3-ABPWSS00 계열","ACS3-CNENC200 + ACS3-AFEASA00 계열"];
  $("dw").textContent=`${d[0]} / ${dw} W`;
  $("mw").textContent=`${m[0]} / ${mw} W / ${m[2]}`;
- $("grp").textContent=oldGroup(ms) && !["F40","F60","F80"].includes(m[2])?"ECMC(old-series) 동일 체결 그룹":ms==="B3"?"B3 connector group":"소형 공용 connector group";
+ $("grp").textContent=(ms==="B3" && ct==="connector")?"B3 Built-in connector group":oldGroup(ms) && !["F40","F60","F80"].includes(m[2])?"ECMC(old-series) 동일 체결 그룹":ms==="B3"?"B3 cable motor connector group":"소형 공용 connector group";
  $("pconn").textContent=c[0];$("econn").textContent=c[1];
- $("basis").textContent=ds==="A3"?"첨부 ASDA-A3 한글 매뉴얼 B-32~B-40":ds==="B3"?"첨부 ASDA-B3 영문 매뉴얼 Appendix B (B.1~B.5, B.18)":ds==="A2"?"ASDA-A2 User Manual Appendix A Accessories / Servo Drive-Motor-Cable combinations":ds==="B2"?"ASDA-B2 User Manual Appendix A Accessories / Servo Drive-Motor-Cable combinations":"공식 매뉴얼 DB";
+ $("basis").textContent=(ms==="B3" && ct==="connector")?"첨부 ASDA-B3 카탈로그 Built-in Motor 케이블/커넥터 표 및 Ordering Information · A3/B3 드라이브측 커넥터 공용 적용":ds==="A3"?"첨부 ASDA-A3 한글 매뉴얼 B-32~B-40":ds==="B3"?"첨부 ASDA-B3 영문 매뉴얼 Appendix B (B.1~B.5, B.18)":ds==="A2"?"ASDA-A2 User Manual Appendix A Accessories / Servo Drive-Motor-Cable combinations":ds==="B2"?"ASDA-B2 User Manual Appendix A Accessories / Servo Drive-Motor-Cable combinations":"공식 매뉴얼 DB";
 }
 
 $("ds").innerHTML=["A2","B2","A3","B3"].map(x=>opt(x)).join("");
@@ -457,6 +524,7 @@ $("drive").value="ASD-A3-0721";$("motor").value="ECM-B3M-C20807";calc();
 
 $("ds").addEventListener("change",refreshDrive);
 $("ms").addEventListener("change",refreshMotor);
+$("connType").addEventListener("change",refreshMotor);
 ["drive","motor","len","flex","brake","encType"].forEach(id=>$(id).addEventListener("change",calc));
 </script>
 
