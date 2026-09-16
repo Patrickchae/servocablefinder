@@ -3,15 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ServoCableFind | Delta Servo Cable Finder A2 B2 A3 B3</title>
-<meta name="description" content="Delta A2, B2, A3, B3 servo drive and motor combinations, power cable and encoder cable part-number finder.">
-<meta name="keywords" content="Delta servo cable, ASDA A2 cable, ASDA B2 cable, ASDA A3 cable, ASDA B3 cable, encoder cable, power cable">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://servocablefind.com/">
-<meta property="og:title" content="ServoCableFind">
-<meta property="og:description" content="Delta servo drive & motor cable finder for A2, B2, A3 and B3 series.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://servocablefind.com/">
+<title>Delta Servo Cable Selector v11.10</title>
 <style>
 :root{--bg:#f4f6f8;--card:#fff;--line:#d6dce5;--txt:#182230;--muted:#667085;--ok:#067647;--warn:#b54708;--bad:#b42318;--blue:#175cd3}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Malgun Gothic",sans-serif;color:var(--txt)}
@@ -28,56 +20,10 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;borde
 .note{font-size:13px;color:var(--muted);line-height:1.65}
 @media(max-width:760px){.grid,.results{grid-template-columns:1fr}}
 </style>
-
-<style>
-.sitebar{background:#101828;color:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #344054}
-.sitebar-inner{max-width:1200px;margin:auto;padding:12px 16px;display:flex;align-items:center;gap:20px}
-.brand{font-size:20px;font-weight:800;letter-spacing:-.3px;color:#fff;text-decoration:none;white-space:nowrap}
-.brand b{color:#84adff}
-.nav{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
-.nav a{color:#d0d5dd;text-decoration:none;font-size:14px;font-weight:700}
-.nav a:hover{color:#fff}
-.hero{max-width:1200px;margin:22px auto 0;padding:0 16px}
-.hero-box{background:linear-gradient(135deg,#101828,#344054);color:#fff;border-radius:18px;padding:26px}
-.hero h2{font-size:30px;margin:0 0 8px}.hero p{color:#e4e7ec;line-height:1.7;margin:0;max-width:800px}
-.info-wrap{max-width:1200px;margin:0 auto 28px;padding:0 16px}
-.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.info-card{background:white;border:1px solid #d6dce5;border-radius:14px;padding:18px}
-.info-card h3{margin:0 0 8px;font-size:17px}.info-card p{margin:0;color:#667085;line-height:1.7;font-size:14px}
-.info-card a{display:inline-block;margin-top:12px;color:#175cd3;text-decoration:none;font-weight:700;font-size:14px}
-.site-footer{margin-top:30px;background:#101828;color:#98a2b3}
-.footer-inner{max-width:1200px;margin:auto;padding:28px 16px;display:grid;grid-template-columns:2fr 1fr;gap:20px}
-.site-footer a{color:#d0d5dd;text-decoration:none;margin-right:12px}
-.disclaimer{font-size:12px;line-height:1.7;margin-top:12px}
-@media(max-width:760px){
- .sitebar-inner{align-items:flex-start;flex-direction:column;gap:8px}.nav{margin-left:0;gap:12px}
- .hero h2{font-size:24px}.info-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}
-}
-</style>
 </head>
 <body>
-
-<header class="sitebar">
-  <div class="sitebar-inner">
-    <a class="brand" href="index.html">Servo<b>Cable</b>Find</a>
-    <nav class="nav" aria-label="주 메뉴">
-      <a href="index.html">Cable Finder</a>
-      <a href="guides.html">Cable Guide</a>
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-<section class="hero">
-  <div class="hero-box">
-    <h2>Servo Cable Finder</h2>
-    <p>Delta A2 · B2 · A3 · B3 드라이브와 모터 조합에 따른 Power / Encoder cable을 빠르게 찾는 기술 도구입니다. 실제 적용 전 공식 Delta 매뉴얼의 최신 조합표를 반드시 확인하세요.</p>
-  </div>
-</section>
-
 <div class="wrap">
-<h1>Delta Servo Cable Selector <span class="badge">v11.9</span></h1>
+<h1>Delta Servo Cable Selector <span class="badge">v11.10</span></h1>
 <div class="sub">
 모터 모델 DB를 실제 세대별 표기 방식으로 다시 구성했습니다.
 A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기준으로 케이블을 선택합니다.
@@ -381,11 +327,11 @@ function b3BuiltInPower(m,L,flex,brake){
  // Catalog p.21~22. A = cable exit toward motor shaft, B = toward encoder.
  let a,b;
  if(brake==="yes"){
-  a=`ACS3-${torsion?"AFPRSS":"AFPWSS"}${xx}`;
-  b=`ACS3-${torsion?"ABPRSS":"ABPWSS"}${xx}`;
+  a=`ACS3-AFPWSS${xx}`;
+  b=`ACS3-ABPWSS${xx}`;
  }else{
-  a=`ACS3-${torsion?"AFPRSR":"AFPWSR"}${xx}`;
-  b=`ACS3-${torsion?"ABPRSR":"ABPWSR"}${xx}`;
+  a=`ACS3-AFPWSR${xx}`;
+  b=`ACS3-ABPWSR${xx}`;
  }
  return [`축방향: ${a}${suffix} / 엔코더방향: ${b}${suffix}`,
          `B3 Built-in Motor F80 이하 · ${torsion?"Torsion-Resistant":"Standard"} · 카탈로그는 케이블 인출방향 2종을 별도 품번으로 구분`];
@@ -395,11 +341,11 @@ function b3BuiltInEncoder(m,L,flex,enc){
  const xx=String(L).padStart(2,"0"), torsion=flex==="flex", suffix=torsion?"-A":"-N";
  let a,b;
  if(enc==="abs"){
-  a=`ACS3-${torsion?"AFERSA":"AFEASA"}${xx}`;
-  b=`ACS3-${torsion?"ABERSA":"ABEASA"}${xx}`;
+  a=`ACS3-AFEASA${xx}`;
+  b=`ACS3-ABEASA${xx}`;
  }else{
-  a=`ACS3-${torsion?"AFERSI":"AFEASI"}${xx}`;
-  b=`ACS3-${torsion?"ABERSI":"ABEASI"}${xx}`;
+  a=`ACS3-AFEASI${xx}`;
+  b=`ACS3-ABEASI${xx}`;
  }
  return [`축방향: ${a}${suffix} / 엔코더방향: ${b}${suffix}`,
          `B3 Built-in Motor F80 이하 · ${enc==="abs"?"Absolute":"Incremental"} · ${torsion?"Torsion-Resistant":"Standard"} · 인출방향별 품번 표시`];
@@ -527,38 +473,4 @@ $("ms").addEventListener("change",refreshMotor);
 $("connType").addEventListener("change",refreshMotor);
 ["drive","motor","len","flex","brake","encType"].forEach(id=>$(id).addEventListener("change",calc));
 </script>
-
-<section class="info-wrap">
-  <div class="info-grid">
-    <article class="info-card">
-      <h3>A2 / B2 Cable Guide</h3>
-      <p>A2와 B2의 파워·엔코더 케이블 표기 방식과 프레임별 케이블 그룹을 정리합니다.</p>
-      <a href="guides.html#a2-b2">가이드 보기 →</a>
-    </article>
-    <article class="info-card">
-      <h3>A3 / B3 Cable Guide</h3>
-      <p>A3/B3 모터의 소형 프레임과 1 kW 이상 군용 커넥터 그룹 차이를 확인할 수 있습니다.</p>
-      <a href="guides.html#a3-b3">가이드 보기 →</a>
-    </article>
-    <article class="info-card">
-      <h3>Compatibility Notice</h3>
-      <p>커넥터가 체결된다고 공식 지원 조합을 의미하지 않습니다. 용량과 엔코더 세대를 함께 확인해야 합니다.</p>
-      <a href="guides.html#compatibility">호환성 안내 →</a>
-    </article>
-  </div>
-</section>
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div>
-      <strong style="color:white">ServoCableFind</strong>
-      <div class="disclaimer">This is an independent technical reference tool and is not an official Delta Electronics website. Product names and trademarks belong to their respective owners. Always verify cable and compatibility information with the latest official manufacturer documentation before purchase or installation.</div>
-    </div>
-    <div>
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
-</footer>
-
 </body></html>
