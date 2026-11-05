@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Delta Servo Cable Selector v11.10</title>
+<title>ServoCableFind | Delta & Inovance SV670</title>
 <style>
 :root{--bg:#f4f6f8;--card:#fff;--line:#d6dce5;--txt:#182230;--muted:#667085;--ok:#067647;--warn:#b54708;--bad:#b42318;--blue:#175cd3}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,"Malgun Gothic",sans-serif;color:var(--txt)}
@@ -23,12 +23,15 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;borde
 </head>
 <body>
 <div class="wrap">
-<h1>Delta Servo Cable Selector <span class="badge">v11.10</span></h1>
+<h1>ServoCableFind <span class="badge">Delta + Inovance SV670</span></h1>
 <div class="sub">
+Delta 및 Inovance SV670 케이블 선정 · 제조사별 공식 자료 기준<br>
 모터 모델 DB를 실제 세대별 표기 방식으로 다시 구성했습니다.
 A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기준으로 케이블을 선택합니다.
 </div>
 
+<div class="card"><label for="brand">제조사 / Manufacturer</label><select id="brand"><option value="delta">Delta</option><option value="inovance">Inovance (SV670)</option></select></div>
+<div id="deltaPanel">
 <div class="card"><div class="grid">
 <div><label>드라이브 시리즈</label><select id="ds"></select></div>
 <div><label>드라이브 모델</label><select id="drive"></select></div>
@@ -74,7 +77,28 @@ A3 드라이브는 첨부 ASDA-A3 한글 매뉴얼 B-32~B-40의 조합표를 기
 
 
 </div>
-
+</div><!-- /deltaPanel -->
+<div id="inovancePanel" style="display:none">
+<div class="card"><div class="grid">
+<div><label>드라이브 시리즈</label><select id="ivSeries"><option value="P">SV670P (Pulse)</option><option value="N">SV670N (EtherCAT)</option></select></div>
+<div><label>드라이브 모델</label><select id="ivDrive"></select></div>
+<div><label>모터 시리즈</label><select id="ivFamily"><option>H1</option><option>H2</option><option selected>H3</option><option>H4</option></select></div>
+<div><label>모터 모델</label><select id="ivMotor"></select></div>
+<div><label>케이블 길이</label><select id="ivLength"><option value="3">3 m</option><option value="5">5 m</option><option value="10">10 m</option></select></div>
+<div><label>케이블 타입</label><select id="ivFlex"><option value="std">비가동 / Standard</option><option value="flex">가동 / Flexible (품번 확인 필요)</option></select></div>
+<div><label>엔코더 운전</label><select id="ivEncoderMode"><option value="absolute">멀티턴 절대치 (배터리 사용)</option><option value="incremental">증분식 운전 (배터리 미사용)</option></select></div>
+</div><p class="note">모터 모델의 브레이크 옵션(0/1/2/4)을 자동 판독합니다. A3 엔코더는 배터리 없이 증분식 운전해도 동일한 P121/P124 케이블을 사용합니다.</p></div>
+<div class="card"><div id="ivStatus" class="status">-</div></div>
+<div class="card"><div class="results">
+<div class="res"><h3>POWER CABLE</h3><div id="ivPower" class="pn">-</div><div id="ivPowerMeta" class="meta"></div><button type="button" id="ivCopyPower">파워 품번 복사</button></div>
+<div class="res"><h3>ENCODER CABLE</h3><div id="ivEncoder" class="pn">-</div><div id="ivEncoderMeta" class="meta"></div><button type="button" id="ivCopyEncoder">엔코더 품번 복사</button></div>
+</div></div>
+<div class="card"><table>
+<tr><th>드라이브 / 모터</th><td id="ivPair">-</td></tr>
+<tr><th>모터 사양</th><td id="ivSpec">-</td></tr>
+<tr><th>선정 근거</th><td id="ivBasis">-</td></tr>
+</table></div>
+</div><!-- /inovancePanel -->
 <script>
 const DRIVES={
  A2:[["ASD-A2-0121",100],["ASD-A2-0221",200],["ASD-A2-0421",400],["ASD-A2-0721",750],["ASD-A2-1021",1000],["ASD-A2-1521",1500],["ASD-A2-2023",2000],["ASD-A2-3023",3000]],
@@ -473,4 +497,5 @@ $("ms").addEventListener("change",refreshMotor);
 $("connType").addEventListener("change",refreshMotor);
 ["drive","motor","len","flex","brake","encType"].forEach(id=>$(id).addEventListener("change",calc));
 </script>
+<script src="inovance.js"></script>
 </body></html>
